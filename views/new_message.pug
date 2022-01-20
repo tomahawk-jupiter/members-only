@@ -1,0 +1,38 @@
+extends layout 
+
+block content 
+
+  a(href='/') Home
+
+  h1 Compose Message 
+
+  form(method='POST' action='' id='form1')
+    div.form-group 
+      label(for='title') Message Title:
+      input#title.form-control(
+        type='text',
+        name='title',
+        required='true'
+      )
+    div.form-group
+      label(for='text') Message Text:
+      textarea#text.form-control(
+        name='text',
+        rows='4',
+        cols='50',
+        form='form1',
+        maxLength='150',
+        required='true'
+        )
+      input(
+        type='hidden',
+        name='author',
+        value=(currentUser ? currentUser.fullname : ''),
+        required='true'
+      )
+      button.btn.btn-success(type='submit') Post message
+
+  if errors 
+    ul 
+      for error in errors 
+        li=error

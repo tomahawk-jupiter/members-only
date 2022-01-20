@@ -1,0 +1,54 @@
+extends layout
+
+block content
+
+  a.link(href='/sign-up') Sign Up
+
+  a.link(href='/sign-in') Sign In
+
+  if currentUser 
+    if currentUser.member === false
+      a.link(href='/join-club') Join Club
+    a.link(href='/sign-out') Sign Out
+
+  hr
+
+  h1 Index page 
+
+  p #[strong Welcome:] #{currentUser === undefined ? 'guest user' : currentUser.fullname}
+  p #[strong Club Member:] #{currentUser ? currentUser.member : 'You are not signed in'}
+
+  hr
+
+  if currentUser
+    a#messagebtn.btn.btn-success(href='/new-message') New message
+  else 
+    p Sign in to write messages.
+
+  h4 Messages 
+
+  if messages
+    for message in messages 
+      div.message
+        h5 #{message.title}
+        unless currentUser
+          p Anonymous says:
+        else 
+          p #{message.author === currentUser.fullname ? 'You say:' : message.author + ' Says:'} 
+
+        p #{message.text}
+        p #{currentUser === undefined || !currentUser.member ? 'Date Hidden' : 'on ' + message.formatted_timestamp}
+        if currentUser && currentUser.admin 
+          form(method='DELETE' action='/delete-message')
+            input(
+              type='hidden',
+              name='messageID',
+              value=(message._id),
+              required='true'
+            )
+            button.btn.btn-danger(type='submit') Delete Message
+
+  else 
+    p There are no messages.
+
+

@@ -1,0 +1,43 @@
+extends layout 
+
+block content 
+
+  a(href='/') Home
+
+  hr
+
+  h1 Sign In Form 
+
+  p #{message === undefined ? '' : message}
+
+  form(method='POST' action='') 
+    div.form-group 
+      label(for='username') Username (Email): 
+      input#username.form-control(
+        type='email',
+        name='username',
+        placeholder='Enter email',
+        required='true'
+      )
+    div.form-group 
+      label(for='password') Password: 
+      input#password.form-control(
+        type='password',
+        name='password',
+        placeholder='Enter Password',
+        required='true'
+      )
+    button.btn.btn-success(type='submit') Sign In
+
+  if errors 
+
+    p Errors: 
+
+    ul
+      for error in errors 
+
+        li=error.msg
+
+  if error 
+
+    p=error

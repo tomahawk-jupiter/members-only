@@ -1,0 +1,31 @@
+extends layout 
+
+block content 
+
+  a(href='/') Home
+
+  hr
+  
+  h1 Join Club 
+
+  h4 Clue: what is the magic word?
+
+  form(method='POST' action='')
+    div.form-group
+      label(for='memberPW') Members Password: 
+      input#password.form-control(
+        type='password',
+        name='memberPW',
+        required='true'
+      )
+      input(
+        type='hidden',
+        name='userID',
+        value=currentUser._id,
+        required=true
+      )
+    button.btn.btn-success(type='submit') Join
+
+  if error 
+    p=error
+  

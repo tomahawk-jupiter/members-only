@@ -1,0 +1,80 @@
+extends layout 
+
+block content 
+
+  a(href='/') Home
+
+  hr
+  
+  h1 Sign Up Form 
+
+  form(method='POST' action='') 
+    div.form-group 
+      label(for='firstname') First Name: 
+      input#firstname.form-control(
+        type='text',
+        name='firstname',
+        value=(user === undefined ? '' : user.firstname),
+        placeholder='Enter first name',
+        required='true'
+      )
+    div.form-group 
+      label(for='lastname') Last Name: 
+      input#lastname.form-control(
+        type='text',
+        name='lastname',
+        value=(user === undefined ? '' : user.lastname),
+        placeholder='Enter last name',
+        required='true'
+      )
+    div.form-group 
+      label(for='username') Email (Username): 
+      input#username.form-control(
+        type='email',
+        name='username',
+        value=(user === undefined ? '' : user.username),
+        placeholder='Enter email',
+        required='true'
+      )
+    div.form-group 
+      label(for='password') Password: 
+      input#password.form-control(
+        type='password',
+        name='password',
+        placeholder='Choose password',
+        required='true'
+      )
+    div.form-group 
+      label(for='confirmation') Confirm Password: 
+      input#confirmation.form-control(
+        type='password',
+        name='confirmation',
+        placeholder='Re-type your password',
+        required='true'
+      )
+    div.form-group 
+      label(for='admin') Is Admin 
+      input#admin.form-control(
+        type='radio',
+        name='admin'
+      )
+    div.form-group 
+      label(for='adminpw') Admin Password 
+      input#adminpw.form-control(
+        type='password',
+        name='adminpw'
+      )
+    button.btn.btn-success(type='submit') Sign Up
+
+  if errors 
+
+    p Errors: 
+
+    ul
+      for error in errors 
+
+        li=error.msg
+
+  if error 
+
+    p=error
